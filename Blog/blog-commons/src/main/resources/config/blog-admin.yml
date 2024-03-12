@@ -1,0 +1,12 @@
+spring:
+  application:
+    # 设置app名称:
+    name: blog-admin
+  config:
+    # 导入Config Server地址:
+    import: configserver:${CONFIG_SERVER:http://localhost:8888}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useSSL=false&useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT
+    username: root
+    password: 123456
