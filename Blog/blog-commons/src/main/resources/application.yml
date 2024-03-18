@@ -8,6 +8,10 @@ spring:
     # 从文件读取配置时，Config Server激活的profile必须设定为native:
     active: native
   cloud:
+    nacos:
+      server-addr: localhost:8848
+      username: nacos
+      password: nacos
     config:
       server:
         native:
