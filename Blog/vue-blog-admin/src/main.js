@@ -8,7 +8,6 @@ import axios from './router/axios'
 
 const app = createApp(App)
 
-
 app.use(createPinia())
 app.use(router)
 

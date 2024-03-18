@@ -10,4 +10,9 @@ public class UserServiceImpl implements UserService {
     public SysUser getUserByUsername(String username) {
         return null;
     }
+
+    @Override
+    public String doLogin(String username, String password) {
+        return null;
+    }
 }

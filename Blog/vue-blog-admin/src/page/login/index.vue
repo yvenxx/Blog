@@ -1,8 +1,12 @@
 <script setup>
-
+import request from '@/router/axios';
 function submitLogin(e) {
-  // e.preventDefault()
-  console.log(123);
+  request({
+    url: '/api/user/info',
+    method: 'get',
+    params: {
+    }
+  })
 }
 </script>
 
