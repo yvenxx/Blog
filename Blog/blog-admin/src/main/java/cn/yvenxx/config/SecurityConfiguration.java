@@ -39,7 +39,8 @@ public class SecurityConfiguration{
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/auth/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 // 添加自己编写的两个过滤器
                 // 前后端分离是 STATELESS，故 session 使用该策略

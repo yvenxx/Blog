@@ -1,5 +1,6 @@
 package cn.yvenxx.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,15 +13,13 @@ import java.util.Collection;
 @Data
 @ApiModel("用户")
 @Component
+@TableName("t_user")
 public class SysUser implements UserDetails {
     @ApiModelProperty(notes = "用户名")
     private String username;
 
     @ApiModelProperty(notes = "姓名")
     private String name;
-
-    @ApiModelProperty(notes = "编码")
-    private String code;
 
     @ApiModelProperty(notes = "密码")
     private String password;

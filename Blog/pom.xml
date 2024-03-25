@@ -7,6 +7,7 @@
   <modules>
     <module>blog-admin</module>
     <module>blog-commons</module>
+    <module>blog-gateway</module>
   </modules>
   <version>0.0.1-SNAPSHOT</version>
   <name>Blog</name>
@@ -68,13 +69,6 @@
         <artifactId>hutool-all</artifactId>
         <version>${hutool.version}</version>
       </dependency>
-
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
-      </dependency>
-
     </dependencies>
   </dependencyManagement>
 
@@ -91,6 +85,7 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
   <build>
     <pluginManagement>
