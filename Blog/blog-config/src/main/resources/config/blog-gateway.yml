@@ -19,16 +19,14 @@ spring:
         - id: blog-member #自定义路由标识，必须唯一
           uri: lb://blog-member #路由目标地址，也就是用户请求时，会请求到哪里，blog-member是已有的服务名称
           predicates: #路由断言，作用是判断路由是否符合规则，也就是用户请求是否符合规则，符合的话，才会被网关路由到某个服务名称，多个断言用-
-            - Path=/user/** #路径断言，判断用户请求的路径是否是以/user/开头，如果是则符合规则
+            - Path=/api/user/** #路径断言，判断用户请求的路径是否是以/user/开头，如果是则符合规则
           filters:
-            - PrefixPath=/api
             - StripPrefix=2
         - id: blog-auth #自定义路由标识，必须唯一
           uri: lb://blog-auth #路由目标地址，也就是用户请求时，会请求到哪里，blog-member是已有的服务名称
           predicates: #路由断言，作用是判断路由是否符合规则，也就是用户请求是否符合规则，符合的话，才会被网关路由到某个服务名称，多个断言用-
-            - Path=/auth/** #路径断言，判断用户请求的路径是否是以/user/开头，如果是则符合规则
+            - Path=/api/auth/** #路径断言，判断用户请求的路径是否是以/user/开头，如果是则符合规则
           filters:
-            - PrefixPath=/api
             - StripPrefix=2
 swagger:
   base-package: cn.yvenxx.*.controller
