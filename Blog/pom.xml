@@ -5,9 +5,11 @@
   <artifactId>Blog</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>blog-admin</module>
-    <module>blog-commons</module>
+    <module>blog-member</module>
+    <module>blog-config</module>
     <module>blog-gateway</module>
+    <module>blog-auth</module>
+    <module>blog-commons</module>
   </modules>
   <version>0.0.1-SNAPSHOT</version>
   <name>Blog</name>
@@ -27,7 +29,8 @@
     <org.projectlombok.version>1.18.20</org.projectlombok.version>
     <spring-cloud.version>2021.0.3</spring-cloud.version>
     <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
-    <mybatis-plus.version>3.4.3</mybatis-plus.version>
+    <mybatis-plus.version>3.4.1</mybatis-plus.version>
+    <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
     <hutool.version>5.8.26</hutool.version>
     <mysql.version>8.0.33</mysql.version>
     <lombok.version>1.18.30</lombok.version>
@@ -63,6 +66,11 @@
         <artifactId>mybatis-plus-boot-starter</artifactId>
         <version>${mybatis-plus.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-generator</artifactId>
+        <version>${mybatis-plus-generator.version}</version>
+      </dependency>
       <!--hutool工具包-->
       <dependency>
         <groupId>cn.hutool</groupId>
@@ -88,6 +96,7 @@
 
   </dependencies>
   <build>
+
     <pluginManagement>
       <plugins>
         <plugin>
