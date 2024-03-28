@@ -1,4 +1,4 @@
-package cn.yvenxx.auth.util;
+package cn.yvenxx.common.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
