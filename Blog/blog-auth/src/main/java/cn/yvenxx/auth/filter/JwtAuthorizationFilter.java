@@ -1,6 +1,6 @@
 package cn.yvenxx.auth.filter;
 
-import cn.yvenxx.auth.util.JWTUtil;
+import cn.yvenxx.common.util.JWTUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

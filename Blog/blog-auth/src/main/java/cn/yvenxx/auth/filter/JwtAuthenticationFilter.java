@@ -1,7 +1,6 @@
 package cn.yvenxx.auth.filter;
 
-import cn.yvenxx.auth.util.JWTUtil;
-
+import cn.yvenxx.common.util.JWTUtil;
 import cn.yvenxx.common.util.R;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;

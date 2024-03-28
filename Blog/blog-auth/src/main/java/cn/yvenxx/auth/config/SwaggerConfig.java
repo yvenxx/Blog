@@ -33,9 +33,9 @@ class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.regex("^(?!auth).*$"))
-                .build()
-                .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+                .build();
+//                .securitySchemes(securitySchemes())
+//                .securityContexts(securityContexts());
     }
 
     private List<SecurityScheme> securitySchemes() {

@@ -33,12 +33,13 @@ public class SecurityConfiguration{
                 // security 默认 csrf 是开启的，我们使用了 token ，这个也没有什么必要了
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/mapper/**").permitAll()
-                .anyRequest().permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/test").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 // 添加自己编写的两个过滤器
                 // 前后端分离是 STATELESS，故 session 使用该策略
-                .addFilterAt(new JwtAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAt(new JwtAuthorizationFilter(authenticationManager), BasicAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
