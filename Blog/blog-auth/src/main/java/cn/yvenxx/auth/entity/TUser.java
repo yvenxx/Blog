@@ -34,7 +34,14 @@ public class TUser implements Serializable, UserDetails {
     @ApiModelProperty(value = "是否启用")
     private Integer enable;
 
+    @ApiModelProperty(value = "角色")
     private Collection<? extends GrantedAuthority> role;
+
+    public TUser(String username, String password) {
+        this.name = username;
+        this.password = password;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -43,7 +50,7 @@ public class TUser implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return name;
     }
 
     @Override

@@ -34,9 +34,4 @@ public class AuthController {
         UserVO userVO = userService.doLogin(username, password);
         return R.succ(JWTUtil.sign(userVO.getUsername(),userVO.getPassword()));
     }
-
-    @GetMapping("test")
-    public R test(){
-        return R.succ(null);
-    }
 }

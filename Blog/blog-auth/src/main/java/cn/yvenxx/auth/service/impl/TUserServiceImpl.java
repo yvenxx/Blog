@@ -23,18 +23,11 @@ import org.springframework.stereotype.Service;
  * @since 2024-03-28
  */
 @Service
-public class TUserServiceImpl extends ServiceImpl<TUserMapper, TUser> implements ITUserService, UserDetailsService {
+public class TUserServiceImpl extends ServiceImpl<TUserMapper, TUser> implements ITUserService {
 
     @Autowired
     private TUserMapper userMapper;
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        TUser tUser = getUserByUsername(username);
-        if (tUser == null) {
-            throw new UsernameNotFoundException("This username didn't exist.");
-        }
-        return new User(tUser.getUsername(), tUser.getPassword(), tUser.getRole());
-    }
+
 
     @Override
     public TUser getUserByUsername(String username) {
