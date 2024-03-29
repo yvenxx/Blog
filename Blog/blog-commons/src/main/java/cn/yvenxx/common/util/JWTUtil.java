@@ -9,20 +9,23 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import java.util.Date;
 
 public class JWTUtil {
-    // 过期时间5分钟
-    private final static long EXPIRE_TIME = 5 * 60 * 1000;
+    // 过期时间七天
+    private final static long EXPIRE_TIME = 7 * 60 * 60 * 1000;
+    public static final String APPSECRET_KEY = "blog_yven";
+
     /**
-     * 生成签名,5min后过期
+     * 生成签名,过期时间七天
      * @param username 用户名
-     * @param secret 用户的密码
+     * @param role 用户的角色
      * @return 加密的token
      */
-    public static String sign(String username, String secret) {
+    public static String sign(String username, String role) {
         Date expireDate = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(APPSECRET_KEY);
             return JWT.create()
                     .withClaim("username", username)
+                    .withClaim("role",role)
                     .withExpiresAt(expireDate)
                     .sign(algorithm);
         } catch (Exception e) {
