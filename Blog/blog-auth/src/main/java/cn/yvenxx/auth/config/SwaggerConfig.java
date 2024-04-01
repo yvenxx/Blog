@@ -34,6 +34,7 @@ class SwaggerConfig {
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.regex("^(?!auth).*$"))
                 .build();
+        //安全验证，如果不要的话就不用打开下面两个。
 //                .securitySchemes(securitySchemes())
 //                .securityContexts(securityContexts());
     }

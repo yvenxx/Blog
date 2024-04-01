@@ -47,7 +47,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         } catch (UsernameNotFoundException e) {
             return null;
         }
-        if (! JWTUtil.verify(token, username, userDetails.getPassword())) {
+        if (! JWTUtil.verify(token, username)) {
             return null;
         }
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

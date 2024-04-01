@@ -37,7 +37,7 @@ public class SecurityConfiguration{
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/test").permitAll()
+                .antMatchers("/v3/api-docs").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // 添加自己编写的两个过滤器
