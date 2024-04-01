@@ -14,18 +14,21 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @Primary
 @Data
 public class SwaggerProviderConfig implements SwaggerResourcesProvider {
-
+    // swagger地址
     private static final String SWAGGER3URL = "/v3/api-docs";
 
     private final RouteLocator routeLocator;
 
+    // 当前服务名
     @Value("${spring.application.name}")
     private String self;
+
     @Autowired
     private GatewayProperties gatewayProperties;
 
@@ -34,7 +37,7 @@ public class SwaggerProviderConfig implements SwaggerResourcesProvider {
     public List<SwaggerResource> get() {
         List<SwaggerResource> resourceList = new ArrayList<>();
         List<String> routes = new ArrayList<>();
-        // 获取网关中配置的route
+        // 获取网关中配置的route，和gateway配置相关
         routeLocator.getRoutes().subscribe(route -> routes.add(route.getId()));
         gatewayProperties.getRoutes().stream()
                 .filter(routeDefinition -> routes
