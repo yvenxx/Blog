@@ -1,4 +1,4 @@
-package cn.yvenxx;
+package cn.yvenxx.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
