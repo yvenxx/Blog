@@ -29,6 +29,7 @@ axios.interceptors.request.use(config => {
     if(config.baseUrl!==false){
         if (!isURL(config.url) && !config.url.startsWith(baseUrl)) {
             config.url = baseUrl + config.url
+            console.log(config.url);
         }
     }
     //headers判断是否需要
