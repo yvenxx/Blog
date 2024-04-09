@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @EnableFeignClients
 @MapperScan(basePackages = "cn.yvenxx.system.mapper")
-@ComponentScan(basePackages = {"cn.yvenxx.common"})
+@ComponentScan(basePackages = {"cn.yvenxx.common","cn.yvenxx.system"})
 public class BlogSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(BlogSystemApplication.class, args);

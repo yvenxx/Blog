@@ -1,8 +1,6 @@
 package cn.yvenxx.auth.service;
 
-import cn.hutool.system.UserInfo;
-import cn.yvenxx.auth.entity.TUser;
-import cn.yvenxx.auth.vo.UserVO;
+import cn.yvenxx.auth.entity.LoginUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,8 +11,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author yven
  * @since 2024-03-28
  */
-public interface ITUserService extends IService<TUser> {
-    TUser getUserByUsername(String username);
+public interface ITUserService extends IService<LoginUser> {
+    LoginUser getUserByUsername(String username);
 
-    UserVO doLogin(String username, String password);
+    LoginUser doLogin(String username, String password);
 }

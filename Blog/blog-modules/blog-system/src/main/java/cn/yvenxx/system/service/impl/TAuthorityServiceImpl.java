@@ -17,4 +17,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class TAuthorityServiceImpl extends ServiceImpl<TAuthorityMapper, TAuthority> implements ITAuthorityService {
 
+
 }

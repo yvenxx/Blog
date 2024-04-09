@@ -1,14 +1,24 @@
 package cn.yvenxx.auth.entity;
 
+import cn.yvenxx.common.entity.TAuthority;
+import cn.yvenxx.common.entity.TRole;
+import cn.yvenxx.common.model.BaseModel;
+import cn.yvenxx.common.vo.RoleVO;
+import cn.yvenxx.common.vo.UserVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -20,8 +30,9 @@ import java.util.Collection;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 @ApiModel(value="TUser对象", description="")
-public class TUser implements Serializable, UserDetails {
+public class LoginUser extends BaseModel implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,17 +46,16 @@ public class TUser implements Serializable, UserDetails {
     private Integer enable;
 
     @ApiModelProperty(value = "角色")
-    private Collection<? extends GrantedAuthority> role;
+    private List<SimpleGrantedAuthority> roles = new ArrayList<>();
 
-    public TUser(String username, String password) {
+    public LoginUser(String username, String password) {
         this.name = username;
         this.password = password;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role;
+        return null;
     }
 
     @Override
@@ -71,5 +81,17 @@ public class TUser implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public void setRoles(List<RoleVO> roles){
+        for (RoleVO role : roles) {
+            this.roles.add(new SimpleGrantedAuthority(role.getRoleName()));
+        }
+    }
+    public void setUser(UserVO userVO){
+        this.password = userVO.getPassword();
+        this.name = userVO.getName();
+        this.enable = userVO.getEnable();
+        setRoles(userVO.getRoles());
     }
 }

@@ -2,6 +2,7 @@ package cn.yvenxx.auth.filter;
 
 import cn.yvenxx.common.util.JWTUtil;
 import cn.yvenxx.common.util.R;
+import cn.yvenxx.common.vo.UserVO;
 import com.alibaba.fastjson2.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -95,7 +96,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         if (authResult != null) {
             // 处理登入成功请求
             User user = (User) authResult.getPrincipal();
-            String token = JWTUtil.sign(user.getUsername(), user.getPassword());
+            String token = JWTUtil.sign(user.getUsername(), user.getAuthorities().toString());
             response.setStatus(HttpStatus.OK.value());
             response.getWriter().write(mapper.writeValueAsString(R.succ("登入成功","Bearer " + token)));
         } else {

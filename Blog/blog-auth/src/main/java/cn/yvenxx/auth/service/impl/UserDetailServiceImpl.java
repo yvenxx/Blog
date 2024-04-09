@@ -1,7 +1,10 @@
 package cn.yvenxx.auth.service.impl;
 
-import cn.yvenxx.auth.entity.TUser;
+import cn.yvenxx.auth.clients.UserClient;
+import cn.yvenxx.auth.entity.LoginUser;
 import cn.yvenxx.auth.mapper.TUserMapper;
+import cn.yvenxx.common.util.R;
+import cn.yvenxx.common.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,14 +20,20 @@ import java.util.List;
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private TUserMapper mapper;
+    @Autowired
+    private UserClient userClient;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        TUser tUser = mapper.getUserInfoByUsername(username);
-        if (tUser == null) {
+        UserVO userVO = userClient.getUserinfoByUsername(username);
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUser(userVO);
+
+        if (loginUser == null) {
             throw new UsernameNotFoundException("This username didn't exist.");
         }
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+"admin"));
-        return new User(tUser.getUsername(), tUser.getPassword(),authorities);
+//        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+//        authorities.add(new SimpleGrantedAuthority("ROLE_"+"admin"));
+
+        return new User(loginUser.getUsername(), loginUser.getPassword(),loginUser.getRoles());
     }
 }

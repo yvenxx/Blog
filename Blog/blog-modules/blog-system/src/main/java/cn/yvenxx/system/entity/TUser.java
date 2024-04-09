@@ -32,5 +32,4 @@ public class TUser extends BaseModel implements Serializable{
     @ApiModelProperty(value = "是否启用")
     private Integer enable;
 
-
 }

@@ -1,9 +1,11 @@
 package cn.yvenxx.system.service.impl;
 
+import cn.yvenxx.common.vo.UserVO;
 import cn.yvenxx.system.entity.TUser;
 import cn.yvenxx.system.mapper.TUserMapper;
 import cn.yvenxx.system.service.ITUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +18,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TUserServiceImpl extends ServiceImpl<TUserMapper, TUser> implements ITUserService {
+    @Autowired
+    private TUserMapper userMapper;
 
+    public UserVO getUserInfoByUsername(String username){
+        return userMapper.getUserInfoByUsername(username);
+    }
 }
