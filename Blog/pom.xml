@@ -5,11 +5,12 @@
   <artifactId>Blog</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>blog-member</module>
+    <module>blog-modules</module>
     <module>blog-config</module>
     <module>blog-gateway</module>
     <module>blog-auth</module>
     <module>blog-commons</module>
+    <module>blog-modules/blog-system</module>
   </modules>
   <version>0.0.1-SNAPSHOT</version>
   <name>Blog</name>
@@ -96,7 +97,6 @@
 
   </dependencies>
   <build>
-
     <pluginManagement>
       <plugins>
         <plugin>

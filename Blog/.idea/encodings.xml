@@ -5,8 +5,9 @@
     <file url="file://$PROJECT_DIR$/blog-commons/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-config/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-gateway/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/blog-member/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/blog-member/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog-modules/blog-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog-modules/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog-modules/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../admin/blog-admim/src/main/java" charset="UTF-8" />
