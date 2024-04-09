@@ -25,7 +25,7 @@ public class JWTUtil {
             Algorithm algorithm = Algorithm.HMAC256(APPSECRET_KEY);
             return JWT.create()
                     .withClaim("username", username)
-                    .withClaim("role",role)
+                    .withClaim("roles",role)
                     .withExpiresAt(expireDate)
                     .sign(algorithm);
         } catch (Exception e) {
@@ -57,6 +57,14 @@ public class JWTUtil {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("username").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+    public static String getRole(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("roles").asString();
         } catch (JWTDecodeException e) {
             return null;
         }

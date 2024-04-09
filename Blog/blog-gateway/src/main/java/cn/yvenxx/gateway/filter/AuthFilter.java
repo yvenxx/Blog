@@ -9,7 +9,6 @@ import com.alibaba.fastjson2.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -50,7 +49,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         if (StringUtils.isEmpty(username)){
             return unauthorizedResponse(exchange, "令牌验证失败");
         }
-// 设置用户信息到请求
+        // 设置用户信息到请求
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 
