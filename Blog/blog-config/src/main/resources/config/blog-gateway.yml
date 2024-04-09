@@ -16,16 +16,16 @@ spring:
       password: nacos
     gateway:
       routes: #自定义网关路由规则，多个规则就用-
-        - id: blog-member #自定义路由标识，必须唯一
-          uri: lb://blog-member #路由目标地址，也就是用户请求时，会请求到哪里，blog-member是已有的服务名称
-          predicates: #路由断言，作用是判断路由是否符合规则，也就是用户请求是否符合规则，符合的话，才会被网关路由到某个服务名称，多个断言用-
-            - Path=/api/user/** #路径断言，判断用户请求的路径是否是以/user/开头，如果是则符合规则
-          filters:
-            - StripPrefix=2 # 去掉2个前缀，比如现在是/api/user/**，实际访问就只剩 /** 了
         - id: blog-auth #自定义路由标识，必须唯一
           uri: lb://blog-auth #路由目标地址，也就是用户请求时，会请求到哪里，blog-auth是已有的服务名称
           predicates: #路由断言，作用是判断路由是否符合规则，也就是用户请求是否符合规则，符合的话，才会被网关路由到某个服务名称，多个断言用-
             - Path=/api/auth/** #路径断言，判断用户请求的路径是否是以/auth/开头，如果是则符合规则
+          filters:
+            - StripPrefix=2
+        - id: blog-system
+          uri: lb://blog-system
+          predicates:
+            - Path=/api/system/**
           filters:
             - StripPrefix=2
 swagger:
@@ -33,3 +33,4 @@ swagger:
 ignore:
   whites:
     - /api/auth/login
+    - /api/system/user/oauth
