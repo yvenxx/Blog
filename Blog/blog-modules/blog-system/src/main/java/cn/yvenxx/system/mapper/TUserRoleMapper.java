@@ -1,6 +1,6 @@
 package cn.yvenxx.system.mapper;
 
-import cn.yvenxx.system.entity.TUserRole;
+import cn.yvenxx.common.entity.TUserRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

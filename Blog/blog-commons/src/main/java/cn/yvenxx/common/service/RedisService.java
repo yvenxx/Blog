@@ -131,8 +131,11 @@ public class RedisService {
      */
     public <T> long setCacheList(final String key, final List<T> dataList)
     {
-        Long count = redisTemplate.opsForList().rightPushAll(key, dataList);
-        return count == null ? 0 : count;
+        if (!dataList.isEmpty()){
+            Long count = redisTemplate.opsForList().rightPushAll(key, dataList);
+            return count == null ? 0 : count;
+        }
+        return 0;
     }
 
     /**

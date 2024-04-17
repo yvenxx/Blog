@@ -1,8 +1,8 @@
 package cn.yvenxx.system.controller;
 
 
+import cn.yvenxx.common.entity.TAuthority;
 import cn.yvenxx.common.util.R;
-import cn.yvenxx.system.entity.TAuthority;
 import cn.yvenxx.system.service.ITAuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2024-04-02
  */
 @RestController
-@RequestMapping("/system/authority")
+@RequestMapping("/authority")
 public class TAuthorityController {
 
     @Autowired

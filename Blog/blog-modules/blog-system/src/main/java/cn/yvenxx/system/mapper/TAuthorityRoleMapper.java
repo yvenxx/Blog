@@ -1,6 +1,6 @@
 package cn.yvenxx.system.mapper;
 
-import cn.yvenxx.system.entity.TAuthorityRole;
+import cn.yvenxx.common.entity.TAuthorityRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

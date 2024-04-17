@@ -1,11 +1,14 @@
 package cn.yvenxx.gateway.filter;
 
 import cn.yvenxx.common.constant.TokenConstants;
+import cn.yvenxx.common.entity.TAuthority;
+import cn.yvenxx.common.service.RedisService;
 import cn.yvenxx.common.util.JWTUtil;
 import cn.yvenxx.common.util.R;
 import cn.yvenxx.gateway.config.properties.IgnoreWhiteProperties;
 import com.alibaba.cloud.commons.lang.StringUtils;
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +29,12 @@ import java.util.List;
 @Component
 public class AuthFilter implements GlobalFilter, Ordered {
 
+    @Autowired
+    private RedisService redisService;
     // 排除过滤的 uri 地址，nacos自行添加
     @Autowired
-    public IgnoreWhiteProperties ignoreWhite;
+    private IgnoreWhiteProperties ignoreWhite;
+
     private static final Logger log = LoggerFactory.getLogger(AuthFilter.class);
 
     @Override
@@ -49,8 +55,28 @@ public class AuthFilter implements GlobalFilter, Ordered {
         if (StringUtils.isEmpty(username)){
             return unauthorizedResponse(exchange, "令牌验证失败");
         }
+        // 鉴权
+        // 获取 Redis里面的角色权限。根据角色权限判断
+        String[] roles = JWTUtil.getRole(token).split(",");
+
+        if (!hasPermission(url, roles)){
+            return unauthorizedResponse(exchange, "无访问权限");
+        }
+
         // 设置用户信息到请求
         return chain.filter(exchange.mutate().request(mutate.build()).build());
+    }
+
+    private boolean hasPermission(String url , String[] roles){
+        for (String role : roles) {
+            List<String> permissionList = redisService.getCacheList(role+":permission");
+            for (String permission : permissionList) {
+                if (url.matches(permission+"/.*")){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private Mono<Void> unauthorizedResponse(ServerWebExchange exchange, String msg)

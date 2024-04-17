@@ -1,7 +1,7 @@
 package cn.yvenxx.system.service;
 
+import cn.yvenxx.common.entity.TUser;
 import cn.yvenxx.common.vo.UserVO;
-import cn.yvenxx.system.entity.TUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -96,7 +97,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         if (authResult != null) {
             // 处理登入成功请求
             User user = (User) authResult.getPrincipal();
-            String token = JWTUtil.sign(user.getUsername(), user.getAuthorities().toString());
+            StringBuilder sb = new StringBuilder();
+            for (GrantedAuthority authority : user.getAuthorities()) {
+                sb.append(authority.getAuthority()).append(",");
+            }
+            sb.deleteCharAt(sb.length()-1);
+            String token = JWTUtil.sign(user.getUsername(), sb.toString());
             response.setStatus(HttpStatus.OK.value());
             response.getWriter().write(mapper.writeValueAsString(R.succ("登入成功","Bearer " + token)));
         } else {

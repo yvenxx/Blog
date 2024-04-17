@@ -1,6 +1,6 @@
 package cn.yvenxx.system.service.impl;
 
-import cn.yvenxx.system.entity.TUserRole;
+import cn.yvenxx.common.entity.TUserRole;
 import cn.yvenxx.system.mapper.TUserRoleMapper;
 import cn.yvenxx.system.service.ITUserRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

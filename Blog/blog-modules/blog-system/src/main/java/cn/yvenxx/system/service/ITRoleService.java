@@ -1,6 +1,6 @@
 package cn.yvenxx.system.service;
 
-import cn.yvenxx.system.entity.TRole;
+import cn.yvenxx.common.entity.TRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

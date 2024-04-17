@@ -1,6 +1,6 @@
 package cn.yvenxx.system.service;
 
-import cn.yvenxx.system.entity.TAuthorityRole;
+import cn.yvenxx.common.entity.TAuthorityRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

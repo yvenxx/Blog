@@ -23,7 +23,6 @@ public class TUserServiceImpl extends ServiceImpl<TUserMapper, LoginUser> implem
     @Autowired
     private TUserMapper userMapper;
 
-
     @Override
     public LoginUser getUserByUsername(String username) {
         return baseMapper.getUserInfoByUsername(username);

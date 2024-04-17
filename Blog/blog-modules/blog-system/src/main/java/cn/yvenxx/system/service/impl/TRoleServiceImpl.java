@@ -1,6 +1,6 @@
 package cn.yvenxx.system.service.impl;
 
-import cn.yvenxx.system.entity.TRole;
+import cn.yvenxx.common.entity.TRole;
 import cn.yvenxx.system.mapper.TRoleMapper;
 import cn.yvenxx.system.service.ITRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
