@@ -7,4 +7,21 @@ export default[
             title:"登录"
         },
     },
+    {
+        path: '/',
+        component: () => import ('@/page/home/index.vue'),
+        name: "yven's blog",
+        meta:{
+            title:"yven's blog"
+        },
+    },
+    {
+        path: '/article',
+        component: () => import ('@/page/ArticleDetail/index.vue'),
+        name: "article",
+        meta:{
+            title:"article"
+        },
+    },
+
 ]

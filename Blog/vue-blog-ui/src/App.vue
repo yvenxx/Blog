@@ -2,11 +2,15 @@
 </script>
 
 <template>
-  <div>
     <router-view></router-view>
-  </div>
 </template>
 
-<style scoped>
-
+<style>
+html, body {
+  background-color: rgba(166, 156, 156, 0.05);
+}
+*{
+  padding: 0;
+  margin: 0;
+}
 </style>
