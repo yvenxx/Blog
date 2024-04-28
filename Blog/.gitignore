@@ -37,3 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /.idea/*
+./vue-blog-ui/node_modules/*

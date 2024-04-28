@@ -27,6 +27,8 @@ public class TArticle implements Serializable {
 
     private String author;
 
+    private String category;
+
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;

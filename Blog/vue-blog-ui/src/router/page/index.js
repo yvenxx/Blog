@@ -23,5 +23,13 @@ export default[
             title:"article"
         },
     },
+    {
+        path: '/archive',
+        component: () => import ('@/page/archive/index.vue'),
+        name: "archive",
+        meta:{
+            title:"archive"
+        },
+    }
 
 ]

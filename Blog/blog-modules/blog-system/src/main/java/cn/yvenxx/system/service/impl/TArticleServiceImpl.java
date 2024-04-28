@@ -6,6 +6,8 @@ import cn.yvenxx.system.service.ITArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -16,4 +18,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TArticleServiceImpl extends ServiceImpl<TArticleMapper, TArticle> implements ITArticleService {
+    @Override
+    public List<String> getYears() {
+        return baseMapper.getYears();
+    }
+
+    @Override
+    public List<String> getCategories() {
+        return baseMapper.getCategories();
+    }
 }

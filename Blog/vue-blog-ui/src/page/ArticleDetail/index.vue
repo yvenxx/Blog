@@ -6,11 +6,12 @@ import HomeFooter from "@/components/footer/index.vue";
 
 <script>
 import { useScroll, watchThrottled } from '@vueuse/core';
+import {getArticle} from "@/api/article/article.js";
 export default {
   data() {
     return {
-      text: '',
-      markdown: '# 标题 \n ## 二级标题 \n \naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n ### 三级标题 \n #### 四级标题 \naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n \n ##### 五级标题 \n ###### 六级标题 \naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n\naaaaaaaaaaaaaaaaa\n \n',
+      title:'',
+      markdown: '',
       titleList: [],
       currentIndex: 0,
     };
@@ -29,9 +30,19 @@ export default {
     })
   },
   created() {
-    this.getAnchorList();
+    this.getArticle(1);
+    // 延时1秒
+    setTimeout(() => {
+      this.getAnchorList();
+    }, 200);
   },
   methods:{
+    getArticle(id){
+      getArticle(id).then((res)=>{
+        this.title = res.data.title;
+        this.markdown = res.data.content
+      })
+    },
     handleAnchorClick(anchor, index) {
       this.currentIndex = index;
       const anchorElement = document.getElementById(anchor.id);
@@ -61,9 +72,6 @@ export default {
 
 <template>
   <el-container style="height: 100%">
-    <el-header style="padding: 0;">
-      <HomeHeader style="position: fixed;z-index: 100"></HomeHeader>
-    </el-header>
     <el-container style="height: 100%">
         <el-main class="index-main">
           <!--          文章位置-->
@@ -84,7 +92,7 @@ export default {
             </el-aside>
             <el-main class="article-main" style="width: 50%">
               <!-- 文章内容 -->
-              <h1 class="article-title">title</h1>
+              <h1 class="article-title">{{ title }}</h1>
               <div class="article-detail">
                 <v-md-editor :model-value="markdown" mode="preview"></v-md-editor>
               </div>
@@ -93,9 +101,6 @@ export default {
           </el-container>
         </el-main>
     </el-container>
-    <el-footer>
-      <HomeFooter></HomeFooter>
-    </el-footer>
   </el-container>
 </template>
 

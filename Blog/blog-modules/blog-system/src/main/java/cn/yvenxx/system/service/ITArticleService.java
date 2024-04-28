@@ -3,6 +3,8 @@ package cn.yvenxx.system.service;
 import cn.yvenxx.common.entity.TArticle;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITArticleService extends IService<TArticle> {
 
+    List<String> getYears();
+
+    List<String> getCategories();
 }

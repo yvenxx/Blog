@@ -17,6 +17,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -42,10 +43,13 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest.Builder mutate = request.mutate();
         String url = request.getURI().getPath();
+        HttpMethod method = request.getMethod();
         // 跳过不需要验证的路径
         if (isInWhitelist(url,ignoreWhite.getWhites()))
         {
-            return chain.filter(exchange);
+            if (method.name().equals("GET")) {
+                return chain.filter(exchange);
+            }
         }
         String token = getToken(request);
         if (StringUtils.isEmpty(token)){
@@ -59,7 +63,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         // 获取 Redis里面的角色权限。根据角色权限判断
         String[] roles = JWTUtil.getRole(token).split(",");
 
-        if (!hasPermission(url, roles)){
+        if (!hasPermission(url, roles)) {
             return unauthorizedResponse(exchange, "无访问权限");
         }
 

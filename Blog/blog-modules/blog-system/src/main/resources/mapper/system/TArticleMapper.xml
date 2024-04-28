@@ -2,4 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.yvenxx.system.mapper.TArticleMapper">
 
+    <select id="getYears" resultType="java.lang.String">
+        SELECT YEAR
+            ( create_time )
+        FROM
+            t_article
+        GROUP BY
+            ( create_time )
+        ORDER BY
+            create_time DESC    </select>
+    <select id="getCategories" resultType="java.lang.String">
+        SELECT
+            category
+        FROM
+            t_article
+        GROUP BY
+            category
+        ORDER BY
+            category DESC
+    </select>
 </mapper>
