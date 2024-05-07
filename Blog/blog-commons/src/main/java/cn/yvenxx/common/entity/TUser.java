@@ -26,4 +26,6 @@ public class TUser extends BaseModel implements Serializable{
 
     private Integer enable;
 
+    private Long avatar;
+
 }

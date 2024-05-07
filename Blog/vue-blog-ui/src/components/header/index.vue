@@ -17,8 +17,7 @@
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/archive">归档</el-menu-item>
       <el-menu-item index="/message">留言板</el-menu-item>
-      <el-menu-item index="/history">历史</el-menu-item>
-      <el-menu-item index="/about" style="margin-right: 41%">关于</el-menu-item>
+      <el-menu-item index="/about" style="margin-right: 42%">关于</el-menu-item>
     </el-menu>
 </template>
 

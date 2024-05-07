@@ -1,6 +1,7 @@
 package cn.yvenxx.system.service;
 
 import cn.yvenxx.common.entity.TUser;
+import cn.yvenxx.common.vo.UserInfoVO;
 import cn.yvenxx.common.vo.UserVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITUserService extends IService<TUser> {
     UserVO getUserInfoByUsername(String username);
+
+    UserInfoVO getUserInfoById(int id);
 }

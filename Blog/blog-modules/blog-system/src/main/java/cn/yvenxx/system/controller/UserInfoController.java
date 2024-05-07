@@ -10,21 +10,25 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/user")
-public class SysUserController
+@RequestMapping("/userinfo")
+public class UserInfoController
 {
     @Autowired
     private ITUserService userService;
     /**
      * 获取当前用户信息
      */
-    @GetMapping("/info/{username}")
-    public R info(@PathVariable("username") String username){
-        QueryWrapper<TUser> qw = new QueryWrapper<>();
-        qw.eq("name",username);
-        TUser user = userService.getOne(qw);
-        return R.succ(user);
+    @GetMapping("/info")
+    public R info(){
+        return R.succ(userService.getUserInfoById(2));
     }
+//    @GetMapping("/info/{username}")
+//    public R info(@PathVariable("username") String username){
+//        QueryWrapper<TUser> qw = new QueryWrapper<>();
+//        qw.eq("name",username);
+//        TUser user = userService.getOne(qw);
+//        return R.succ(user);
+//    }
     @PostMapping("/oauth")
     public UserVO getUserInfoByUsername(String username){
         if (username!=null){

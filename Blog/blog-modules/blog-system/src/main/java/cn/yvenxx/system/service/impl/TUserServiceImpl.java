@@ -1,6 +1,7 @@
 package cn.yvenxx.system.service.impl;
 
 import cn.yvenxx.common.entity.TUser;
+import cn.yvenxx.common.vo.UserInfoVO;
 import cn.yvenxx.common.vo.UserVO;
 import cn.yvenxx.system.mapper.TUserMapper;
 import cn.yvenxx.system.service.ITUserService;
@@ -23,5 +24,10 @@ public class TUserServiceImpl extends ServiceImpl<TUserMapper, TUser> implements
 
     public UserVO getUserInfoByUsername(String username){
         return userMapper.getUserInfoByUsername(username);
+    }
+
+    @Override
+    public UserInfoVO getUserInfoById(int id) {
+        return baseMapper.getUserInfoById(id);
     }
 }

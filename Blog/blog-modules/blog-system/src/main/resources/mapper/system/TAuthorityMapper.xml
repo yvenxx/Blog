@@ -3,9 +3,9 @@
 <mapper namespace="cn.yvenxx.system.mapper.TAuthorityMapper">
 
     <select id="selectAllAuthority" resultType="cn.yvenxx.common.vo.AuthorityVO">
-        select tr.name as role,ta.resource
+        select tr.name as role,ta.resource,ta.type
         from t_authority as ta
-        left join t_authority_role as tar on tar.aid = ta.id
+        right join t_authority_role as tar on tar.aid = ta.id
         left join t_role as tr on tr.id = tar.rid
     </select>
 </mapper>

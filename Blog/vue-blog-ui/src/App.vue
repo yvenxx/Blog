@@ -16,7 +16,6 @@ import HomeFooter from "@/components/footer/index.vue";
 <style>
 html, body {
   background-color: rgba(166, 156, 156, 0.05);
-  height: 100%;
 }
 *{
   padding: 0;
