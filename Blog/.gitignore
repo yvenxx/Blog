@@ -38,3 +38,5 @@ build/
 /.idea/*
 ./vue-blog-ui/node_modules/*
 ./vue-blog-admin/node_modules/
+/vue-blog-ui/node_modules/
+/vue-blog-admin/node_modules/
