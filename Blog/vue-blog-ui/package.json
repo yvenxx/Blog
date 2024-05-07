@@ -13,6 +13,7 @@
     "axios": "^1.6.8",
     "element-plus": "^2.7.1",
     "js-base64": "^3.7.7",
+    "mitt": "^3.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "unplugin-auto-import": "^0.17.5",

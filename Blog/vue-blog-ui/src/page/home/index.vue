@@ -2,12 +2,14 @@
 import HomeHeader from "@/components/header/index.vue";
 import HomeAside from "@/components/aside/index.vue";
 import HomeFooter from "@/components/footer/index.vue";
-import {getAllArticle} from "@/api/article/article.js";
+import {getArticlesByParam} from "@/api/article/article.js";
+import eventBus from '@/libs/eventBus'
 
 export default {
   components: {HomeHeader, HomeAside,HomeFooter},
   data() {
     return {
+      searchValue:"",
       articles:[],
       page:{
         pageSize:10,
@@ -21,17 +23,28 @@ export default {
       this.$router.push({path:'/article',query:{id:id}});
     },
     getArticles(){
-      getAllArticle(this.page.currentPage,this.page.pageSize).then((res)=>{
+      getArticlesByParam(this.searchValue,this.page.currentPage,this.page.pageSize).then((res)=>{
         this.articles = res.data.records;
         this.page.pageSize = res.data.size;
         this.page.currentPage = res.data.current;
         this.page.total = res.data.total;
       })
+    },
+    handleCategoryChange(category){
+      console.log(category);
+      this.searchValue = category;
+      this.getArticles();
     }
   },
   created() {
     this.getArticles();
-  }
+  },
+  mounted() {
+    eventBus.on('categoryChange',this.handleCategoryChange);
+  },
+  beforeDestroy() {
+    eventBus.off('categoryChange',this.handleCategoryChange);
+  },
 }
 </script>
 

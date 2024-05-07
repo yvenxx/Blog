@@ -2,9 +2,11 @@ package cn.yvenxx.gateway.filter;
 
 import cn.yvenxx.common.constant.TokenConstants;
 import cn.yvenxx.common.entity.TAuthority;
+import cn.yvenxx.common.enums.HttpMethodsEnum;
 import cn.yvenxx.common.service.RedisService;
 import cn.yvenxx.common.util.JWTUtil;
 import cn.yvenxx.common.util.R;
+import cn.yvenxx.common.vo.AuthorityVO;
 import cn.yvenxx.gateway.config.properties.IgnoreWhiteProperties;
 import com.alibaba.cloud.commons.lang.StringUtils;
 import com.alibaba.fastjson2.JSON;
@@ -26,6 +28,8 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class AuthFilter implements GlobalFilter, Ordered {
@@ -47,35 +51,38 @@ public class AuthFilter implements GlobalFilter, Ordered {
         // 跳过不需要验证的路径
         if (isInWhitelist(url,ignoreWhite.getWhites()))
         {
-            if (method.name().equals("GET")) {
-                return chain.filter(exchange);
-            }
+            return chain.filter(exchange);
         }
         String token = getToken(request);
         if (StringUtils.isEmpty(token)){
-            return unauthorizedResponse(exchange, "令牌不能为空");
+            if (!hasPermission(url,method.name(), new String[]{"ANONYMOUS"})) {
+                return unauthorizedResponse(exchange, "无访问权限");
+//            return unauthorizedResponse(exchange, "令牌不能为空");
+            }
+        }else{
+            String username = JWTUtil.getUsername(token);
+            if (StringUtils.isEmpty(username)){
+                return unauthorizedResponse(exchange, "令牌验证失败");
+            }
+            // 鉴权
+            // 获取 Redis里面的角色权限。根据角色权限判断
+            String[] roles = JWTUtil.getRole(token).split(",");
+            if (!hasPermission(url,method.name(), roles)) {
+                return unauthorizedResponse(exchange, "无访问权限");
+            }
         }
-        String username = JWTUtil.getUsername(token);
-        if (StringUtils.isEmpty(username)){
-            return unauthorizedResponse(exchange, "令牌验证失败");
-        }
-        // 鉴权
-        // 获取 Redis里面的角色权限。根据角色权限判断
-        String[] roles = JWTUtil.getRole(token).split(",");
-
-        if (!hasPermission(url, roles)) {
-            return unauthorizedResponse(exchange, "无访问权限");
-        }
-
         // 设置用户信息到请求
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 
-    private boolean hasPermission(String url , String[] roles){
+    private boolean hasPermission(String url ,String method, String[] roles){
         for (String role : roles) {
-            List<String> permissionList = redisService.getCacheList(role+":permission");
-            for (String permission : permissionList) {
-                if (url.matches(permission+"/.*")){
+            Map<String, Integer> cacheMap = redisService.getCacheMap(role + ":permission");
+            if (cacheMap == null) {
+                return false;
+            }
+            for (Map.Entry<String, Integer> entry : cacheMap.entrySet()) {
+                if (url.matches(entry.getKey()+".*") && method.equals(Objects.requireNonNull(HttpMethodsEnum.getEnumByCode(entry.getValue())).getMethod())) {
                     return true;
                 }
             }

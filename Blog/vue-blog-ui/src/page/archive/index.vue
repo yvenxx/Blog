@@ -95,17 +95,17 @@ export default {
             </div>
             <ul class="article-list-ul" v-for="item in articles">
               <li class="article-list-li"><a target="_blank" class="article-list-a" :href="'article?id='+item.id">{{ item.title }}</a></li>
-              <div style="display: flex; justify-content: center;">
-                <el-pagination
-                    :current-page="page.currentPage"
-                    :page-size="page.pageSize"
-                    :total="page.total"
-                    :hide-on-single-page="true"
-                    layout="prev, pager, next"
-                    @current-change="getArticlesListByParam()"
-                />
-              </div>
             </ul>
+            <div style="display: flex; justify-content: center;">
+              <el-pagination
+                  :current-page="page.currentPage"
+                  :page-size="page.pageSize"
+                  :total="page.total"
+                  :hide-on-single-page="true"
+                  layout="prev, pager, next"
+                  @current-change="getArticlesListByParam()"
+              />
+            </div>
           </el-main>
         </el-container>
       </el-main>

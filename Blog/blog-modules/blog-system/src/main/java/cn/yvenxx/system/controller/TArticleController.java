@@ -18,12 +18,11 @@ public class TArticleController {
     private ITArticleService articleService;
 
     @GetMapping
-    public ResponseEntity<Page<TArticle>> getAllArticles(@RequestParam(name = "param",required = false) String searchValue,
+    public ResponseEntity<Page<TArticle>> archiveByYearOrCategory(@RequestParam(name = "param",required = false) String searchValue,
                                                          @RequestParam(defaultValue = "1") int currentPage,
                                                          @RequestParam(defaultValue = "10") int pageSize) {
         Page<TArticle> page = new Page<>(currentPage, pageSize);
         if (searchValue!=null){
-
             QueryWrapper<TArticle> qw = new QueryWrapper<>();
             // 判断searchValue是不是年份
             if (searchValue.matches("\\d{4}")) {
@@ -36,13 +35,26 @@ public class TArticleController {
         }
         return ResponseEntity.ok(articleService.page(page));
     }
+    @GetMapping("/title")
+    public ResponseEntity<Page<TArticle>> getArticlesByTitle(@RequestParam(name = "param",required = false) String searchValue,
+                                                                  @RequestParam(defaultValue = "1") int currentPage,
+                                                                  @RequestParam(defaultValue = "10") int pageSize) {
+        Page<TArticle> page = new Page<>(currentPage, pageSize);
+        if (searchValue!=null){
+            QueryWrapper<TArticle> qw = new QueryWrapper<>();
+            qw.like("title", searchValue);
+            return ResponseEntity.ok(articleService.page(page,qw));
+        }
+        return ResponseEntity.ok(articleService.page(page));
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<TArticle> getArticleById(@PathVariable Long id) {
         return ResponseEntity.ok(articleService.getById(id));
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<TArticle> createArticle(@RequestBody TArticle article) {
         return ResponseEntity.ok(articleService.save(article) ? article : null);
     }
@@ -53,7 +65,7 @@ public class TArticleController {
         return ResponseEntity.ok(articleService.updateById(article) ? article : null);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
         articleService.removeById(id);
         return ResponseEntity.ok().build();
@@ -67,5 +79,10 @@ public class TArticleController {
     @GetMapping("/category")
     public ResponseEntity<List<String>> getCategories() {
         return ResponseEntity.ok(articleService.getCategories());
+    }
+
+    @GetMapping("/total")
+    public ResponseEntity<Integer> getTotal() {
+        return ResponseEntity.ok(articleService.count());
     }
 }

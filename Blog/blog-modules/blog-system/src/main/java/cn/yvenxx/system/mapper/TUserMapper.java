@@ -1,6 +1,7 @@
 package cn.yvenxx.system.mapper;
 
 import cn.yvenxx.common.entity.TUser;
+import cn.yvenxx.common.vo.UserInfoVO;
 import cn.yvenxx.common.vo.UserVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -14,4 +15,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface TUserMapper extends BaseMapper<TUser> {
     UserVO getUserInfoByUsername(String username);
+
+    UserInfoVO getUserInfoById(int id);
 }

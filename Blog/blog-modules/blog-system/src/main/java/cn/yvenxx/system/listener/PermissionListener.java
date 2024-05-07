@@ -28,16 +28,17 @@ public class PermissionListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         List<AuthorityVO> list = authorityService.getRoleAuthority();
-        // stream 流，根据role字段聚合list，并将resource作为值
-        Map<String, List<String>> collect = list.stream()
-                .collect(Collectors.groupingBy(AuthorityVO::getRole, Collectors.mapping(AuthorityVO::getResource, Collectors.toList())));
-        Iterator<Map.Entry<String, List<String>>> iterator = collect.entrySet().iterator();
-        while (iterator.hasNext()){
-            Map.Entry<String, List<String>> item = iterator.next();
+        // stream 流，根据role字段聚合list
+        Map<String, List<AuthorityVO>> collect = list.stream().collect(Collectors.groupingBy(AuthorityVO::getRole));
+        Iterator<Map.Entry<String, List<AuthorityVO>>> iterator = collect.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, List<AuthorityVO>> item = iterator.next();
+            List<AuthorityVO> authorities = item.getValue();
             String key = item.getKey();
             redisService.deleteObject(key+":permission");
-            List<String> value = item.getValue();
-            redisService.setCacheList(key+":permission",value);
+            for (AuthorityVO authority : authorities) {
+                redisService.setCacheMapValue(key+":permission",authority.getResource(),authority.getType());
+            }
         }
     }
 

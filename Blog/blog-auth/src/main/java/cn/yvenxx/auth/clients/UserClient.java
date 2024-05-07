@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("blog-system")
 public interface UserClient {
-    @PostMapping("/user/oauth")
+    @PostMapping("/userinfo/oauth")
     UserVO getUserinfoByUsername(@RequestParam("username")String username);
 }

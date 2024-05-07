@@ -64,9 +64,11 @@
     <!-- //copyright-->
   </section>
 </template>
-<script>
-import request from "@/router/axios";
 
+<script>
+
+import request from "@/router/axios";
+import {useTokenStore} from "@/stores/counter.js";
 export default {
   data() {
     return {
@@ -86,7 +88,10 @@ export default {
           "password":this.user.password,
         },
       }).then((res) => {
-        console.log(res);
+        if (res.status === 200) {
+          useTokenStore().setToken(res.data.data);
+          this.$router.push({ path: "/dashboard" });
+        }
       });
     },
   },

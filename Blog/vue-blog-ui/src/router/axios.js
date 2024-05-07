@@ -6,6 +6,7 @@ import website from '@/config/website';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import {isURL} from "@/util/validate";
+import { ElMessage } from 'element-plus'
 
 //默认超时时间
 axios.defaults.timeout = 10000;
@@ -35,7 +36,7 @@ axios.interceptors.request.use(config => {
     //headers判断是否需要
     const authorization = config.authorization === false;
     if (!authorization) {
-        config.headers['Authorization'] = `Basic ${Base64.encode(`${website.clientId}:${website.clientSecret}`)}`;
+
     }
     //让每个请求携带token
     // const meta = (config.meta || {});
@@ -71,7 +72,7 @@ axios.interceptors.response.use(res => {
 
     // 如果请求为非200否则默认统一处理
     if (status !== 200) {
-        Message({
+        ElMessage({
             message: message,
             type: 'error'
         });

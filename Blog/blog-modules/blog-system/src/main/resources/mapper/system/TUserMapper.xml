@@ -19,5 +19,10 @@
             left join t_role as tr on tr.id = tur.rid
         where tu.name = #{username}
     </select>
+    <select id="getUserInfoById" resultType="cn.yvenxx.common.vo.UserInfoVO">
+        select u.id,u.name,u.avatar,f.path as avatar_path from t_user as u
+        left join t_file as f on f.id = u.avatar
+        where u.id = #{id}
+    </select>
 
 </mapper>
